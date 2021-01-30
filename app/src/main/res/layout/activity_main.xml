@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/quantidade_em_ml"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:id="@+id/et_ml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:focusable="true"
+        android:gravity="center"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/valor"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:id="@+id/et_valor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:gravity="center"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/btn_adicionar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttons_bg"
+        android:text="@string/adicionar" />
+
+    <Button
+        android:id="@+id/btn_limpar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttons_bg"
+        android:text="@string/limpar_lista" />
+
+    <EditText
+        android:id="@+id/tv_melhor_opcao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/bg_views"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="@string/melhor_op_o"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffff"
+        android:textColorHint="#ffff" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#E3DEDA"
+        android:layout_marginTop="10dp"
+        app:itemIconSize="25dp"
+        app:itemIconTint="#FF5722"
+        app:itemTextColor="#FF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_nav" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_beer" />
+
+
+
+
+
+</LinearLayout>

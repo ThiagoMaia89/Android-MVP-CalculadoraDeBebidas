@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calculadora de Bebidas</string>
+    <string name="retirar_an_ncios">Retirar Anúncios</string>
+    <string name="quantidade_em_ml">Quantidade em ML</string>
+    <string name="valor">Valor (R$)</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="limpar_lista">Limpar Lista</string>
+    <string name="melhor_op_o">Melhor Opção</string>
+</resources>
