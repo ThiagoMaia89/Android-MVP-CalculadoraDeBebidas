@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -71,30 +72,14 @@
         android:hint="@string/melhor_op_o"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffff"
-        android:textColorHint="#ffff" />
+        android:textColorHint="#ffff"
+        android:textSize="16sp" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:backgroundTint="#E3DEDA"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_lista_opcoes"
         android:layout_marginTop="10dp"
-        app:itemIconSize="25dp"
-        app:itemIconTint="#FF5722"
-        app:itemTextColor="#FF5722"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
-
-    <ListView
-        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_beer" />
-
-
-
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

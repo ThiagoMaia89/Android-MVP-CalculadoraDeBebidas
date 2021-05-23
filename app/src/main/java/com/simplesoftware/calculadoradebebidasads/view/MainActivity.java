@@ -1,15 +1,18 @@
-package com.simplesoftware.calculadoradebebidasads;
+package com.simplesoftware.calculadoradebebidasads.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,23 +24,25 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.simplesoftware.calculadoradebebidasads.R;
+import com.simplesoftware.calculadoradebebidasads.util.RecyclerAdapter;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
     private AdView adView;
     private AdRequest adRequest;
     private InterstitialAd interstitialAd;
-    ArrayList<String> listItens = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    int opcao = 1;
+    private ArrayList<String> listItens = new ArrayList<>();
+    private EditText et_ml, et_valor, melhor_opcao;
+    private Button btn_adicionar, btn_limpar;
+    private RecyclerView rv_lista_opcoes;
+    private RecyclerAdapter adapter;
+    private GridLayoutManager layoutManager;
+    int opcao = 1, bestOption, count01 = 0, count02 = 0;
     double menor = Double.MAX_VALUE;
-    int bestOption;
-    int count01 = 0, count02 = 0;
+
 
 
     @Override
@@ -45,38 +50,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+        instanciarInterstitialAd();
+        instanciarComponentes();
 
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-9823376642365552/8011245989");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        layoutManager = new GridLayoutManager(this, 1);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_menu);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.buy_Premium:
-                        gotoUrl("https://play.google.com/store/apps/details?id=com.simplesoftware.calculadoradecerveja.paid");
-                }
-                return false;
-            }
-        });
 
-        final EditText et_ml = (EditText) findViewById(R.id.et_ml);
-        final EditText et_valor = (EditText) findViewById(R.id.et_valor);
-        final EditText melhor_opcao = (EditText) findViewById(R.id.tv_melhor_opcao);
-        Button btn_adicionar = (Button) findViewById(R.id.btn_adicionar);
-        Button btn_limpar = (Button) findViewById(R.id.btn_limpar);
-        final ListView list = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItens);
-        list.setAdapter(adapter);
+
 
         btn_adicionar.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             public void onClick(View v) {
                 interstitialAd.loadAd(new AdRequest.Builder().build());
                 count01 = count01 + 1;
@@ -102,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
                     double total = (valor / ml) * 1000;
                     listItens.add("Opção " + opcao++ + ": R$ " + String.format("%.2f", total).replace(".", ",") + " por litro");
 
+                    adapter = new RecyclerAdapter(listItens);
+                    rv_lista_opcoes.setAdapter(adapter);
+                    rv_lista_opcoes.setLayoutManager(layoutManager);
+
+
                     double[] vet = new double[listItens.size()];
 
                     for (int i = 0; i < vet.length; i++) {
@@ -110,10 +98,20 @@ public class MainActivity extends AppCompatActivity {
                             menor = vet[i];
                             bestOption = vet.length;
                             String melhorOpt = "Opção " + bestOption;
-                            melhor_opcao.setText(melhorOpt);
+                            melhor_opcao.setText
+                                    (
+                                            melhorOpt +
+                                                    " -> "
+                                                    + String.format("%.0f", ml)
+                                                    + " ml por R$ "
+                                                    + String.format("%.2f", valor).replace("." , ",")
+
+                                    );
                         }
                     }
                     adapter.notifyDataSetChanged();
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     et_valor.setText("");
                     et_ml.setText("");
                     et_ml.requestFocus();
@@ -142,6 +140,27 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void instanciarComponentes(){
+        et_ml = (EditText) findViewById(R.id.et_ml);
+        et_valor = (EditText) findViewById(R.id.et_valor);
+        melhor_opcao = (EditText) findViewById(R.id.tv_melhor_opcao);
+        btn_adicionar = (Button) findViewById(R.id.btn_adicionar);
+        btn_limpar = (Button) findViewById(R.id.btn_limpar);
+        rv_lista_opcoes = findViewById(R.id.rv_lista_opcoes);
+    }
+
+    private void instanciarInterstitialAd(){
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-9823376642365552/8011245989");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     private void gotoUrl(String s) {
