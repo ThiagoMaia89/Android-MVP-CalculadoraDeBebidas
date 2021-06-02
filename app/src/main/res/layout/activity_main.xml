@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
-    <data>
-
-        <variable
-            name="presenter"
-            type="com.simplesoftware.calculadoradebebidasads.main.MainPresenter" />
-
-    </data>
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -36,6 +26,7 @@
             android:inputType="numberDecimal" />
 
         <TextView
+            android:id="@+id/valor_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -56,18 +47,17 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:onClick="@{presenter::handleAddButtonClick}"
             android:layout_marginHorizontal="50dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/buttons_bg"
-            android:text="@string/adicionar" />
+            android:text="@string/adicionar"
+            tools:ignore="UsingOnClickInXml" />
 
         <Button
             android:id="@+id/btn_limpar"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:onClick="@{presenter::handleClearButtonClick}"
             android:layout_marginHorizontal="50dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/buttons_bg"
@@ -92,6 +82,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
-
     </LinearLayout>
-</layout>

@@ -1,19 +1,27 @@
 package com.simplesoftware.calculadoradebebidasads.main;
 
 import android.view.View;
+import android.widget.EditText;
+
+import com.simplesoftware.calculadoradebebidasads.adapters.RecyclerAdapter;
+
+import java.util.ArrayList;
 
 public interface MainContract {
 
     interface MvpView{
-        void showBestOptionOnTextView();
+        void onSuccess();
 
-        void getDataFromEditTexts();
+        void onFailure();
+
     }
 
     interface Presenter{
-        void handleAddButtonClick(View view);
 
-        void handleClearButtonClick(View view);
+        Double findResultValue(double ml, double valor);
+
+        void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter);
+
     }
 
 }
