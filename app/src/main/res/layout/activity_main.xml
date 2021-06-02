@@ -1,85 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    android:orientation="vertical"
-    tools:context=".view.MainActivity">
+<layout>
 
-    <TextView
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.simplesoftware.calculadoradebebidasads.main.MainPresenter" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/quantidade_em_ml"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp"
+        tools:context=".main.MainActivity">
 
-    <EditText
-        android:id="@+id/et_ml"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100dp"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        android:focusable="true"
-        android:gravity="center"
-        android:inputType="numberDecimal" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/quantidade_em_ml"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/valor"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        <EditText
+            android:id="@+id/et_ml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:focusable="true"
+            android:gravity="center"
+            android:inputType="numberDecimal" />
 
-    <EditText
-        android:id="@+id/et_valor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100dp"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        android:gravity="center"
-        android:inputType="numberDecimal" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/valor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <Button
-        android:id="@+id/btn_adicionar"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/buttons_bg"
-        android:text="@string/adicionar" />
+        <EditText
+            android:id="@+id/et_valor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:gravity="center"
+            android:inputType="numberDecimal" />
 
-    <Button
-        android:id="@+id/btn_limpar"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/buttons_bg"
-        android:text="@string/limpar_lista" />
+        <Button
+            android:id="@+id/btn_adicionar"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:onClick="@{presenter::handleAddButtonClick}"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttons_bg"
+            android:text="@string/adicionar" />
 
-    <EditText
-        android:id="@+id/tv_melhor_opcao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/bg_views"
-        android:enabled="false"
-        android:gravity="center"
-        android:hint="@string/melhor_op_o"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#ffff"
-        android:textColorHint="#ffff"
-        android:textSize="16sp" />
+        <Button
+            android:id="@+id/btn_limpar"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:onClick="@{presenter::handleClearButtonClick}"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttons_bg"
+            android:text="@string/limpar_lista" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_lista_opcoes"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/tv_melhor_opcao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_views"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="@string/melhor_op_o"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff"
+            android:textSize="16sp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_lista_opcoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

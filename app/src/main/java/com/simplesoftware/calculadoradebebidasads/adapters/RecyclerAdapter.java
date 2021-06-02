@@ -1,4 +1,4 @@
-package com.simplesoftware.calculadoradebebidasads.util;
+package com.simplesoftware.calculadoradebebidasads.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +42,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView rv_image;
-        private TextView rv_itemText;
+        private final ImageView rv_image;
+        private final TextView rv_itemText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
