@@ -35,9 +35,14 @@ public class MainPresenter implements MainContract.Presenter {
         opcao = list.size() + 1;
         list.add("Opção " + opcao + ": R$ " + total + " por litro");
         adapter.notifyDataSetChanged();
-
     }
 
-
+    @Override
+    public void handleBtnClearOnClick(ArrayList<String> listItens, EditText melhor_opcao, int opcao, RecyclerAdapter adapter) {
+        listItens.clear();
+        melhor_opcao.setText("");
+        opcao = 1;
+        adapter.notifyDataSetChanged();
+    }
 
 }

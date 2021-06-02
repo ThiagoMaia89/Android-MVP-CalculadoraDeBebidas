@@ -22,6 +22,9 @@ public interface MainContract {
 
         void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter);
 
+        void handleBtnClearOnClick(ArrayList<String> listItens, EditText melhor_opcao, int opcao, RecyclerAdapter adapter);
+
+
     }
 
 }
