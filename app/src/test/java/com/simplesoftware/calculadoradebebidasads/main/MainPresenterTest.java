@@ -1,13 +1,14 @@
-/*
 package com.simplesoftware.calculadoradebebidasads.main;
 
 import android.view.View;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.Matchers.matches;
 import static org.mockito.Mockito.verify;
 
 public class MainPresenterTest {
@@ -15,9 +16,10 @@ public class MainPresenterTest {
     @Mock
     private MainContract.MvpView mView;
     private MainPresenter mPresenter;
-
+    private int count;
     @Mock
-    private View view;
+    private MainContract.MvpView mvpView;
+
 
     @Before
     public void setUp() throws Exception {
@@ -26,14 +28,9 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void handleAddButtonClick() {
-        mPresenter.handleAddButtonClick();
-        verify(mView).onFailure();
+    public void buttonClickCountListener() {
+        mPresenter.clickCountListener(count);
+        verify(mView);
     }
 
-    @Test
-    public void handleClearButtonClick() {
-    mPresenter.handleClearButtonClick();
-    verify(mView).onSuccess();
-    }
-}*/
+}
