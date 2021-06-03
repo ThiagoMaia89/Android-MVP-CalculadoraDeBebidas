@@ -2,6 +2,7 @@ package com.simplesoftware.calculadoradebebidasads.main;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;

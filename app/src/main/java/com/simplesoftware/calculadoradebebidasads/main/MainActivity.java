@@ -56,10 +56,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
         btn_adicionar.setOnClickListener(v -> {
             loadInterstitial();
-            if (et_ml.getText().toString().trim().equals("") || et_valor.getText().toString().trim().equals("")) {
-                onFailure();
-            } else {
-                onSuccess();
+
+            try {
+
                 double ml = Double.parseDouble(String.valueOf(et_ml.getText()));
                 double valor = Double.parseDouble(String.valueOf(et_valor.getText()));
                 double totalDouble = mPresenter.findResultValue(ml, valor);
@@ -72,50 +71,70 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
                 et_valor.setText("");
                 et_ml.setText("");
                 et_ml.requestFocus();
+                onSuccess();
+
+            } catch (Exception e) {
+
+                onFailure();
+
             }
         });
 
         btn_limpar.setOnClickListener(v -> {
+
             loadInterstitial();
             mPresenter.handleBtnClearOnClick(listItens, tv_melhor_opcao, opcao, adapter);
+
         });
     }
 
     private void loadInterstitial() {
+
         count = count + 1;
         if (count % 5 == 0) {
+
             if (interstitialAd.isLoaded()) {
                 interstitialAd.show();
+
             } else {
                 Log.d("TAG", "The interstitial wasn't loaded yet.");
+
             }
         }
     }
 
     private void instanciarComponentes() {
+
         et_ml = findViewById(R.id.et_ml);
         et_valor = findViewById(R.id.et_valor);
         tv_melhor_opcao = findViewById(R.id.tv_melhor_opcao);
         btn_adicionar = findViewById(R.id.btn_adicionar);
         btn_limpar = findViewById(R.id.btn_limpar);
         rv_lista_opcoes = findViewById(R.id.rv_lista_opcoes);
+
     }
 
     private void instanciarInterstitialAd() {
+
         MobileAds.initialize(this, initializationStatus -> {
         });
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-9823376642365552/8011245989");
         interstitialAd.loadAd(new AdRequest.Builder().build());
+
     }
 
     @Override
     public void onSuccess() {
+
         Toasty.success(this, "Opção adicionada à lista", Toasty.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onFailure() {
+
         Toasty.error(this, "Favor preencher todos os campos", Toasty.LENGTH_SHORT).show();
+
     }
 }
