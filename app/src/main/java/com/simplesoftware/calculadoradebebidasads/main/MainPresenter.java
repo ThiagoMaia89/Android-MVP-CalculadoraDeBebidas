@@ -36,9 +36,13 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter) {
+    public void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter, EditText et_marca, EditText et_ml) {
         opcao = list.size() + 1;
-        list.add("Opção " + opcao + ": R$ " + total + " por litro");
+        if (et_marca.getText().toString().equals("")) {
+            list.add("Opção " + opcao + ":\nR$ " + total + " por litro");
+        } else {
+            list.add("Opção " + opcao + ":\nR$ " + total + " por litro (" + et_marca.getText().toString()+" "+et_ml.getText().toString()+"ml)");
+        }
         adapter.notifyDataSetChanged();
     }
 

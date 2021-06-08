@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
     private InterstitialAd interstitialAd;
     private final ArrayList<String> listItens = new ArrayList<>();
-    private EditText et_ml, et_valor, tv_melhor_opcao;
+    private EditText et_ml, et_valor, tv_melhor_opcao, et_marca;
     private Button btn_adicionar, btn_limpar;
     private RecyclerView rv_lista_opcoes;
     private RecyclerAdapter adapter;
@@ -63,13 +63,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
                 double valor = Double.parseDouble(String.valueOf(et_valor.getText()));
                 double totalDouble = mPresenter.findResultValue(ml, valor);
                 @SuppressLint("DefaultLocale") String totalString = String.format("%.2f", totalDouble);
-                mPresenter.addItemOnList(listItens, opcao, totalString, adapter);
+                mPresenter.addItemOnList(listItens, opcao, totalString, adapter, et_marca, et_ml);
                 tv_melhor_opcao.setText(mPresenter.handleBestOptionText(listItens, ml, valor));
 
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 et_valor.setText("");
                 et_ml.setText("");
+                et_marca.setText("");
                 et_ml.requestFocus();
                 onSuccess();
 
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         btn_adicionar = findViewById(R.id.btn_adicionar);
         btn_limpar = findViewById(R.id.btn_limpar);
         rv_lista_opcoes = findViewById(R.id.rv_lista_opcoes);
+        et_marca = findViewById(R.id.et_marca);
 
     }
 

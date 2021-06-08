@@ -22,7 +22,7 @@ public interface MainContract {
 
         Double findResultValue(double ml, double valor);
 
-        void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter);
+        void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter, EditText et_marca, EditText et_ml);
 
         String handleBestOptionText(ArrayList<String> listItens, double ml, double valor);
 
