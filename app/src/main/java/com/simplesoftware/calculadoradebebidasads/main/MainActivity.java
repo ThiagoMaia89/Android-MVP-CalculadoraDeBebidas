@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -23,6 +25,7 @@ import com.simplesoftware.calculadoradebebidasads.R;
 import com.simplesoftware.calculadoradebebidasads.adapters.RecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import es.dmoral.toasty.Toasty;
 
@@ -32,11 +35,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
     private InterstitialAd interstitialAd;
     private final ArrayList<String> listItens = new ArrayList<>();
-    private EditText et_ml, et_valor, tv_melhor_opcao, et_marca;
+    private EditText et_ml, et_valor, tv_melhor_opcao;
+    private Spinner et_marca;
     private Button btn_adicionar, btn_limpar;
     private RecyclerView rv_lista_opcoes;
     private RecyclerAdapter adapter;
     int opcao = 1, count = 0;
+    ArrayList<String> branchList = new ArrayList<>(Arrays.asList("Escolher marca (opcional)", "Amstel", "Bohemia", "Brahma", "Budweiser", "Devassa", "Duplo Malte",
+            "Heineken", "Itaipava", "Kaiser", "Original", "Sol", "Skol", "Sub Zero"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         instanciarInterstitialAd();
         instanciarComponentes();
 
+        et_marca.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, branchList));
+
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
 
         adapter = new RecyclerAdapter(listItens);
@@ -57,27 +65,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         btn_adicionar.setOnClickListener(v -> {
             loadInterstitial();
 
-            try {
 
+
+            try {
                 double ml = Double.parseDouble(String.valueOf(et_ml.getText()));
                 double valor = Double.parseDouble(String.valueOf(et_valor.getText()));
                 double totalDouble = mPresenter.findResultValue(ml, valor);
                 @SuppressLint("DefaultLocale") String totalString = String.format("%.2f", totalDouble);
                 mPresenter.addItemOnList(listItens, opcao, totalString, adapter, et_marca, et_ml);
                 tv_melhor_opcao.setText(mPresenter.handleBestOptionText(listItens, ml, valor));
-
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 et_valor.setText("");
                 et_ml.setText("");
-                et_marca.setText("");
                 et_ml.requestFocus();
                 onSuccess();
-
             } catch (Exception e) {
-
                 onFailure();
-
             }
         });
 

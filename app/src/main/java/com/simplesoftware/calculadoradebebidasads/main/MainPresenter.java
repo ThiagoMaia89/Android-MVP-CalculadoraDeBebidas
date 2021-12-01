@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -36,12 +37,12 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter, EditText et_marca, EditText et_ml) {
+    public void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter, Spinner et_marca, EditText et_ml) {
         opcao = list.size() + 1;
-        if (et_marca.getText().toString().equals("")) {
+        if (et_marca.getSelectedItemPosition() == 0) {
             list.add("Opção " + opcao + ":\nR$ " + total + " por litro");
         } else {
-            list.add("Opção " + opcao + ":\nR$ " + total + " por litro (" + et_marca.getText().toString()+" "+et_ml.getText().toString()+"ml)");
+            list.add("Opção " + opcao + ":\nR$ " + total + " por litro (" + et_marca.getSelectedItem()+" "+et_ml.getText().toString()+"ml)");
         }
         adapter.notifyDataSetChanged();
     }

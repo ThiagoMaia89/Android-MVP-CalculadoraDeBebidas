@@ -3,6 +3,7 @@ package com.simplesoftware.calculadoradebebidasads.main;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.ads.InterstitialAd;
 import com.simplesoftware.calculadoradebebidasads.adapters.RecyclerAdapter;
@@ -22,7 +23,7 @@ public interface MainContract {
 
         Double findResultValue(double ml, double valor);
 
-        void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter, EditText et_marca, EditText et_ml);
+        void addItemOnList(ArrayList<String> list, int opcao, String total, RecyclerAdapter adapter, Spinner et_marca, EditText et_ml);
 
         String handleBestOptionText(ArrayList<String> listItens, double ml, double valor);
 
