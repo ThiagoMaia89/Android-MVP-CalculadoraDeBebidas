@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
         btn_adicionar.setOnClickListener(v -> {
             loadInterstitial();
-
-
-
             try {
                 double ml = Double.parseDouble(String.valueOf(et_ml.getText()));
                 double valor = Double.parseDouble(String.valueOf(et_valor.getText()));
@@ -79,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
                 et_valor.setText("");
                 et_ml.setText("");
                 et_ml.requestFocus();
+                et_marca.setSelection(0);
                 onSuccess();
             } catch (Exception e) {
                 onFailure();
@@ -86,10 +84,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         });
 
         btn_limpar.setOnClickListener(v -> {
-
             loadInterstitial();
             mPresenter.handleBtnClearOnClick(listItens, tv_melhor_opcao, opcao, adapter);
-
         });
     }
 
